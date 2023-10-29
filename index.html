@@ -12,40 +12,55 @@
     />
   </head>
   <style>
-        .header{
-            display: block;
-            text-align: center;
-            margin: 20px ;
-            text-decoration: underline;
-        }
-        #btn-search{
-            margin: 20px 2px;
-        }
-   
-
+    .header {
+      display: block;
+      text-align: center;
+      margin: 20px;
+      text-decoration: underline;
+    }
+    #btn-search {
+      margin: 20px 2px;
+    }
   </style>
-  <body >
+  <body>
     <header>
       <h1 class="header">Welcome to Phone GallerY</h1>
     </header>
     <main class="container">
-
-        <section class="h">
-            <div class="mb-3 w-50">
-                <input id="search-field" type="text" class="form-control" id="exampleFormControlInput1" placeholder="search your phone">
-            <div id="btn-search" class="btn btn-primary">
-                Search
-            </div>
-            </div>
-        </section>
-        <!-- display search -->
+      <section class="h">
+        <div class="mb-3 w-50">
+          <input
+            id="search-field"
+            type="text"
+            class="form-control"
+            id="exampleFormControlInput1"
+            placeholder="search your phone"
+          />
+          <div id="btn-search" class="btn btn-primary">Search</div>
+        </div>
+      </section>
+      <!-- display search -->
       <section>
-          <div  id="phone-container" class="row row-cols-1 row-cols-md-3 g-4">
-           
+        <div
+          id="phone-container"
+          class="row row-cols-1 row-cols-md-3 g-4"
+        ></div>
+        <div id="message" class="mt-4 d-none">
+          <h4 class="text-warning">
+            No phone found.Please try again with correct name
+          </h4>
+        </div>
+      </section>
+      <!---loader-->
+      <section id="loader" class="d-none">
+        <div
+          style="height: 400px"
+          class="d-flex justify-content-center align-items-center"
+        >
+          <div class="spinner-border text-success" role="status">
+            <span class="visually-hidden">Loading...</span>
           </div>
-          <div id="message" class=" mt-4 d-none">
-            <h4 class="text-warning">No phone found.Please try again with correct name</h4>
-          </div>
+        </div>
       </section>
     </main>
     <script
