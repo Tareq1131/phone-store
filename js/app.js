@@ -41,6 +41,7 @@ const displayPhone = (phones,dataLimit) => {
            natural lead-in to additional content. This content is a
            little bit longer.
          </p>
+         <button onClick="loadPhoneDetails('${phones.slug}')" href='#' class = 'btn btn-primary'>show details</button>
        </div>
      </div>
     `;
@@ -66,6 +67,14 @@ document.getElementById("btn-search").addEventListener("click", function () {
 //   loadPhones(searchText);
 processSearch(10);
 });
+//search input field enter key handler
+document.getElementById('search-field').addEventListener('keypress', function(e){
+    
+    if(e.key == 'Enter'){
+        processSearch(10);
+    }
+})
+
 const toggleSpinne = (isLoading) => {
   const loaderSpinner = document.getElementById("loader");
   if (isLoading) {
@@ -80,3 +89,10 @@ const toggleSpinne = (isLoading) => {
 document.getElementById('btn-show-all').addEventListener('click', function(){
    processSearch();
 } )
+
+const loadPhoneDetails = async id => {
+    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+     console.log(data.data);
+}
