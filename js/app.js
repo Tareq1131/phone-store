@@ -1,15 +1,24 @@
-const loadPhones = async (searchText) => {
+const loadPhones = async (searchText, dataLimit) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`;
   const res = await fetch(url);
   const data = await res.json();
-  displayPhone(data.data);
+  displayPhone(data.data,dataLimit);
 };
-const displayPhone = (phones) => {
+const displayPhone = (phones,dataLimit) => {
   console.log(phones[0]);
   const phonesContainer = document.getElementById("phone-container");
   phonesContainer.textContent = "";
-  //   display 15 phones only
-  phones = phones.slice(0, 15);
+ //   display 15 phones only
+ const showAll = document.getElementById('show-all');
+    if(dataLimit && phones.length > 10){
+        phones = phones.slice(0, 10);
+        showAll.classList.remove('d-none');
+    }
+    else{
+        showAll.classList.add('d-none');
+    }
+
+ 
   //   display no phones
   const noPhone = document.getElementById("message");
   if (phones.length === 0) {
@@ -37,16 +46,25 @@ const displayPhone = (phones) => {
     `;
     phonesContainer.appendChild(phoneDiv);
   });
-  //stop loader
+  //stop loader spinner
   toggleSpinne(false);
 };
+
+const processSearch = (dataLimit)=>{
+    toggleSpinne(true);
+    const searchField = document.getElementById("search-field");
+    const searchText = searchField.value;
+    loadPhones(searchText,dataLimit);
+}
+
 //handle search button click
 document.getElementById("btn-search").addEventListener("click", function () {
   //start loader
-  toggleSpinne(true);
-  const searchField = document.getElementById("search-field");
-  const searchText = searchField.value;
-  loadPhones(searchText);
+//   toggleSpinne(true);
+//   const searchField = document.getElementById("search-field");
+//   const searchText = searchField.value;
+//   loadPhones(searchText);
+processSearch(10);
 });
 const toggleSpinne = (isLoading) => {
   const loaderSpinner = document.getElementById("loader");
@@ -57,3 +75,8 @@ const toggleSpinne = (isLoading) => {
   }
 };
 //loadPhones();
+
+//not best way to load show all data for the api
+document.getElementById('btn-show-all').addEventListener('click', function(){
+   processSearch();
+} )
